@@ -11,38 +11,64 @@
         <div class="row">
             <!-- Single Product -->
             <?php
-                include './admin/connect.php';
-                
+            include './admin/connect.php';
+            if (isset($_GET['category'])) {
+                $category = $_GET['category'];
+
+                $sql = "SELECT foodID, name, description, price, image FROM food WHERE categoryName = '$category'";
+
+                $result = $connect->query($sql);
+                if (empty($result) or $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="col-md-6 col-lg-4 col-xl-3">
+                            <div id="product-' . $row['foodID'] . '" class="single-product">
+                                <style>
+                                    .section-products #product-' . $row['foodID'] . ' .part-1::before {
+                                        background: url("' . $row["image"] . '") no-repeat center;
+                                        background-size: cover;
+                                        transition: all 0.3s;
+                                    }
+                                </style>
+                                <div class="part-1">
+                                    <button name="delete_' . $row['foodID'] . '" class="btn btn-danger" onclick="confirm(\'Are you sure you want to delete this item\')"><a href="?delete=' . $row['foodID'] . '">Delete</a></button>
+                                </div>
+                                <div class="part-2">
+                                    <h2 class="product-title">' . $row["name"] . '</h2>
+                                    <p class="font-weight-lighter">' . $row["description"] . '</p>
+                                    <h4 class="product-price text-danger">$' . $row["price"] . '</h4>
+                                </div>
+                            </div>
+                        </div>';
+                    }
+                }
+            } else {
                 $sql = "SELECT foodID, name, description, price, image FROM food";
                 $res = $connect->query($sql);
-                if (empty($res) or $res->num_rows > 0){
-                    while ($row = $res->fetch_assoc()){
+                if (empty($res) or $res->num_rows > 0) {
+                    while ($row = $res->fetch_assoc()) {
                         echo '<div class="col-md-6 col-lg-4 col-xl-3">
-                        <div id="product-'.$row['foodID'].'" class="single-product">
+                        <div id="product-' . $row['foodID'] . '" class="single-product">
                             <style>
-                                .section-products #product-'.$row['foodID'].' .part-1::before {
-                                    background: url("'.$row['image'].'") no-repeat center;
+                                .section-products #product-' . $row['foodID'] . ' .part-1::before {
+                                    background: url("' . $row["image"] . '") no-repeat center;
                                     background-size: cover;
                                     transition: all 0.3s;
                                 }
                             </style>
                             <div class="part-1">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-plus"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-expand"></i></a></li>
-                                </ul>
+                                <button name="delete_' . $row['foodID'] . '" class="btn btn-danger" onclick="confirm(\'Are you sure you want to delete this item\')"><a href="?delete=' . $row['foodID'] . '">Delete</a></button>
                             </div>
                             <div class="part-2">
-                            <h2 class="product-title">'.$row["name"].'</h2>
-                            <p class="font-weight-lighter">'.$row["description"].'</p>
-                            <h4 class="product-price text-danger">$'.$row["price"].'</h4>
+                                <h2 class="product-title">' . $row["name"] . '</h2>
+                                <p class="font-weight-lighter">' . $row["description"] . '</p>
+                                <h4 class="product-price text-danger">$' . $row["price"] . '</h4>
                             </div>
                         </div>
                     </div>';
                     }
                 }
+            }
+
             ?>
         </div>
     </div>
@@ -108,7 +134,7 @@
         transform: scale(1.2, 1.2) rotate(5deg);
     }
 
-    
+
 
     .section-products .single-product .part-1 .discount,
     .section-products .single-product .part-1 .new {

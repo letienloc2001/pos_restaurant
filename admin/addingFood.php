@@ -109,6 +109,38 @@ if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
             }
             ?>
         </form>
+
+
+        <h2>Adding a new category</h2>
+        <form method="post" action="addingFood.php">
+            <!-- Text input -->
+            <div class="form-outline mb-4">
+                <input type="text" id="form6Example3" class="form-control" name="newCategory" placeholder="Category name" required />
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" name="categoryButton" class="btn btn-primary btn-block mb-4">Add category</button>
+            <?php
+            if (isset($_POST['categoryButton'])) {
+
+                include 'connect.php';
+
+                $categoryName = $_POST['newCategory'];
+
+                $find = "SELECT categoryName FROM category WHERE categoryName = '$categoryName'";
+                $res = $connect->query($find);
+
+                if (!empty($res) and $res->num_rows == 0) {
+
+                    $sql = "INSERT INTO category (categoryName) VALUE ('$categoryName' )";
+                    $result = $connect->query($sql);
+                    echo '<div class="text-success">Successfully</div>';
+                } else {
+                    echo '<div class="text-danger">Category already exists</div>';
+                }
+            }
+            ?>
+        </form>
     </div>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
