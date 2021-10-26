@@ -53,7 +53,7 @@
         </form>
     </div>
 </div>
-<!-- <script>
+<script>
     $(document).ready(function() {
 
         $('.navbar .dropdown-item').on('click', function(e) {
@@ -89,4 +89,4 @@
         });
 
     });
-</script> -->
+</script>
