@@ -12,6 +12,7 @@
 
                 <!-- First item -->
                 <?php
+                $totalPrice = 0;
                 if (isset($_SESSION['cart'])) {
                     if (isset($_GET['remove'])){
                         $removeID = $_GET['remove'];
@@ -28,6 +29,7 @@
                         if (empty($res) or $res->num_rows > 0) {
                             while ($row = $res->fetch_assoc()) {
                                 $finalPrice = $row['price'] * $_SESSION['cart'][$key]['qty'];
+                                $totalPrice += $finalPrice;
                                 echo '<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
                                 <div class="col-md-7">
                                     <div class="d-flex flex-row">
@@ -79,9 +81,10 @@
                     <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="342"></div>
                 </div>
                 <hr class="line">
-                <div class="d-flex justify-content-between information"><span>Subtotal</span><span>$3000.00</span></div>
-                <div class="d-flex justify-content-between information"><span>Shipping</span><span>$20.00</span></div>
-                <div class="d-flex justify-content-between information"><span>Total(Incl. taxes)</span><span>$3020.00</span></div><button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button"><span>$3020.00</span><span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span></button>
+                <div class="d-flex justify-content-between information"><span>Subtotal</span><span>$<?php echo $totalPrice; ?></span></div>
+                <div class="d-flex justify-content-between information"><span>Shipping</span><span>$0.00</span></div>
+                <div class="d-flex justify-content-between information"><span>Total(Incl. taxes)</span><span>$<?php echo $totalPrice; ?></span></div>
+                <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button"><span>$<?php echo $totalPrice; ?></span><span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span></button>
             </div>
         </div>
     </div>
