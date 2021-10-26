@@ -10,5 +10,8 @@
             if ($action == 'manage'){
                 header('Location: manage.php');
             }
+            if ($action == 'orders'){
+                header('Location: orders.php');
+            }
         }
 ?>
