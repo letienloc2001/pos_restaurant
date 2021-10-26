@@ -133,6 +133,8 @@
                                 $connect->query($sql);
                             }
                             unset($_SESSION['cart']);
+                        } else {
+                            echo 'No product yet';
                         }
                     }
                 ?>
