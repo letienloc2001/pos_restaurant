@@ -70,7 +70,7 @@
         </div>
         <div class="col-md-4">
             <div class="payment-info">
-                <div class="d-flex justify-content-between align-items-center"><span>Card details</span><img class="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30"></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> </label>
+                <div class="d-flex justify-content-between align-items-center"><span>Card details</span></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> </label>
                 <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png" /></span> </label>
                 <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png" /></span> </label>
                 <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png" /></span> </label>
@@ -81,10 +81,61 @@
                     <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="342"></div>
                 </div>
                 <hr class="line">
-                <div class="d-flex justify-content-between information"><span>Subtotal</span><span>$<?php echo $totalPrice; ?></span></div>
-                <div class="d-flex justify-content-between information"><span>Shipping</span><span>$0.00</span></div>
-                <div class="d-flex justify-content-between information"><span>Total(Incl. taxes)</span><span>$<?php echo $totalPrice; ?></span></div>
-                <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button"><span>$<?php echo $totalPrice; ?></span><span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span></button>
+                <form method="post" action="mycart.php">
+                    <div>
+                        <label class="credit-card-label">Full name</label>
+                        <input type="text" class="form-control credit-inputs" name="customerName" placeholder="Full name" required>
+                    </div>
+                    <div>
+                        <label class="credit-card-label">Address</label>
+                        <input type="text" class="form-control credit-inputs" name="customerAddr" placeholder="Address" required>
+                    </div>
+                    <div>
+                        <label class="credit-card-label">Phone number</label>
+                        <input type="text" class="form-control credit-inputs" name="customerPhoneNumber" placeholder="Phone number" required>
+                    </div>
+                    <hr class="line">
+                    <div class="d-flex justify-content-between information"><span>Subtotal</span><span>$<?php echo $totalPrice; ?></span></div>
+                    <div class="d-flex justify-content-between information"><span>Shipping</span><span>$0.00</span></div>
+                    <div class="d-flex justify-content-between information"><span>Total(Incl. taxes)</span><span>$<?php echo $totalPrice; ?></span></div>
+                    <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="submit" name="placeOrder">
+                        <span>$<?php echo $totalPrice; ?></span>
+                        <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
+                    </button>
+                </form>
+                <?php
+                    if (isset($_POST['placeOrder'])){
+                        if (!empty($_SESSION['cart'])){
+
+                            include './admin/connect.php';
+
+                            $cartID = rand(1, 1000000);
+                            $totalCost = $totalPrice;
+                            $fullName = $_POST['customerName'];
+                            $addr = $_POST['customerAddr'];
+                            $phone = $_POST['customerPhoneNumber'];
+                            
+                            $sql = "INSERT INTO cart (cartID, totalCost, customerName, address, phoneNumber, email) VALUE ('$cartID', '$totalCost', '$fullName', ' $addr', '$phone', 'Guess')";
+
+                            $res = $connect->query($sql);
+
+                            if ($res){
+                                echo 'Order placed successfully';
+                            } else {
+                                echo 'Order not placed successfully'.$connect->error;
+                            }
+                            
+                            foreach ($_SESSION['cart'] as $k => $v){
+                                $foodID = $k;
+                                $quantity = $_SESSION['cart'][$k]['qty'];
+                                $sql = "INSERT INTO ordering (cartID, foodID, quantity) VALUE ('$cartID', '$foodID', '$quantity')";
+
+                                $connect->query($sql);
+                            }
+                            unset($_SESSION['cart']);
+                        }
+                    }
+                ?>
             </div>
         </div>
     </div>
