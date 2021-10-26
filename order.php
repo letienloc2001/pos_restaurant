@@ -1,3 +1,8 @@
+<?php
+    if (session_id() === '') {
+        session_start();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en" style="height: 100%" xmlns="http://www.w3.org/1999/html">
 

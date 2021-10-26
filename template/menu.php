@@ -30,7 +30,12 @@
                                     }
                                 </style>
                                 <div class="part-1">
-                                    <button name="delete_' . $row['foodID'] . '" class="btn btn-danger" onclick="confirm(\'Are you sure you want to delete this item\')"><a href="?delete=' . $row['foodID'] . '">Delete</a></button>
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-plus"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                                </ul>
                                 </div>
                                 <div class="part-2">
                                     <h2 class="product-title">' . $row["name"] . '</h2>
@@ -56,7 +61,12 @@
                                 }
                             </style>
                             <div class="part-1">
-                                <button name="delete_' . $row['foodID'] . '" class="btn btn-danger" onclick="confirm(\'Are you sure you want to delete this item\')"><a href="?delete=' . $row['foodID'] . '">Delete</a></button>
+                            <ul>
+                                <li><a href="?addCart='.$row['foodID'].'"><i class="fas fa-shopping-cart"></i></a></li>
+                                <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                <li><a href="#"><i class="fas fa-plus"></i></a></li>
+                                <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            </ul>
                             </div>
                             <div class="part-2">
                                 <h2 class="product-title">' . $row["name"] . '</h2>
@@ -68,7 +78,22 @@
                     }
                 }
             }
+            ?>
+            <?php
+                include './admin/connect.php';
 
+                $id = isset($_GET['addCart']) ? $_GET['addCart'] : '';
+
+                if (isset($_SESSION['cart'])){
+                    if (isset($_SESSION['cart'][$id])){
+                        $_SESSION['cart'][$id]['qty'] += 1;
+                    } else {
+                        $_SESSION['cart'][$id]['qty'] = 1;   
+                    }
+                } else {
+                    $_SESSION['cart'][$id]['qty'] = 1;
+                }
+                          
             ?>
         </div>
     </div>

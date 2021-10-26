@@ -1,3 +1,6 @@
+<?php
+    include 'action.php';
+?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation" style="background-color:  #ffffff;">
     <a class="navbar-brand" href="#">Restaurant POS 2.0</a>
@@ -50,10 +53,7 @@
         </form>
     </div>
 </div>
-<?php
-    include 'action.php';
-?>
-<script>
+<!-- <script>
     $(document).ready(function() {
 
         $('.navbar .dropdown-item').on('click', function(e) {
@@ -89,4 +89,4 @@
         });
 
     });
-</script>
+</script> -->
