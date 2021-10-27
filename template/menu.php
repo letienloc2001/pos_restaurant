@@ -31,7 +31,7 @@
                                 </style>
                                 <div class="part-1">
                                 <ul>
-                                    <li><a href="?category=addCart='.$row['foodID'].'"><i class="fas fa-shopping-cart"></i></a></li>
+                                    <li><a href="?category=addCart='.$row['foodID'].' alt="Add to cart""><i class="fas fa-shopping-cart"></i></a></li>
                                     <li><a href="#"><i class="fas fa-heart"></i></a></li>
                                     <li><a href="#"><i class="fas fa-plus"></i></a></li>
                                     <li><a href="#"><i class="fas fa-expand"></i></a></li>

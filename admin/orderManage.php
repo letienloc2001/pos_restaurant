@@ -31,7 +31,7 @@ if (empty($res) or $res->num_rows > 0) {
                                     <span class="ml-2">Name: <b><?php echo $row['customerName'] ?></b></span><br>
                                     <span class="ml-2">Address: <b><?php echo $row['address'] ?></b></span><br>
                                     <span class="ml-2">Phone number: <b><?php echo $row['phoneNumber'] ?></b></span><br>
-                                    <span class="ml-2">Date created: <b><?php echo $row['dateCreated'] ?></b></span>
+                                    <span class="ml-2">Date created: <b class="text-danger"><?php echo $row['dateCreated'] ?></b></span>
                                 </p>
                             </div>
                             <hr>
