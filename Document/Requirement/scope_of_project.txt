@@ -1,0 +1,17 @@
+Scope of the project
+  1. Justification
+    - Managing restaurant can be easier by using POS system, which is developed based on web-platform. POS system makes the reservation, payment more convenient and tracking profit more clearly. The system, moreover, allows the restaurant owner to manage their staffs, food and revenue. Being built in web-platform, the system guarantee the stability on several devices, security and convenience.
+
+  2. Description
+    - POS system provides basic functions such as food ordering, table reservation, online payment. It is almost the same as traditional restaurant but more flexible as everything in online.
+
+  3. Acceptance criteria
+    - In term of technology, the system is experienced and assess by the restaurant staffs. The project is considered to be complete if the rating point is more than 4 over fifth. In term of user experience, the project is considered to be complete if the user rating point is more than 4 over fifth.
+
+  4. Deliverable
+    - Project manager has to provide the customer with documents related to implementation and maintaining the system such as SRS (system requirement), SDD (system design), STD (system testing document), some analysis about the system and the user manual.
+    - Project has to be handed over to the customer after testing and acceptance.
+    - Customer will be supported for implementation and maintaining for free in the first year.
+
+  5. Exclusions
+    - Some other functions such as Intelligent Recommend System, Data Analysis for the restaurant owner, Search Engine Optimization will not be supported.
