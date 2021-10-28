@@ -1,0 +1,5 @@
+Project context
+  - Pay first, , Payment Option: cash, credit card
+  - Reservation: Customers can reserve table on the restaurant website, they can also pre-order food
+  - Food: At the beginning of the day, the kitchen will update the ingredients quantity. After that the system auto calculate the quantity of a meal to show the availability. However, during the day, the kitchen can update the ingredients or the meal manually (because there may be some problems that led to reduction of the ingredients)
+  - Menu, meal and price : can only be defined by the manager or the restaurant owner.
