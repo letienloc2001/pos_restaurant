@@ -1,0 +1,10 @@
+Stakeholders
+  - End users: Restaurant customers, Restaurant staffs
+  - System managers: IT staffs, Restaurant manager
+  - System owners: restaurant owners
+  - External stakeholders
+
+IT staffs:		 Implement and maintain the system
+Restaurant owner:	 Manage staffs, list of food, revenue
+Restaurant staffs:	 Manage receipts, list of food, payment, booking and customers service
+Restaurant customers:	 Order food, reserve table, give feedback

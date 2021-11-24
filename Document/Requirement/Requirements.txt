@@ -1,0 +1,29 @@
+Requirements
+  1. Functional requirements
+    - Customers are allowed to reserve tables before coming to the restaurant
+    - Customers shall select food from the menu
+    - Customers can confirm the order by a button on the app
+    - Customers are able to choose to pay by cash or credit card
+    - Customers receive information when the order is confirmed and ready
+    - Customers can indirectly contact the clerk
+    - Customers are able to update information, give feedback or cancel the transaction
+    - Clerk will receive orders after the customers click on the confirm button
+    - Clerk should send notifications to the customers if some problems occur
+    - Clerk can indirectly contact the customers
+    - Staffs can Add, Delete, Edit products or change the restaurant information
+    - The system allow the customers to add product to cart while they are exploring the restaurant
+    - The restaurant manager can manage daily/weekly/monthly report such as reports of feedbacks, order trends and income
+    - Restaurant owner are able to get the statistics of their restaurant
+    - Restaurant manager is able to add, edit, remove staffs
+    - Customer can order food without logging in
+    
+
+  2. Non-functional requirements
+    - The application has user-friendly interface and easy to use for customers. In details, customers just need 4-5 minutes to get used to the application
+    - Restaurant clerks and managers can use the application after 2 training hours
+    - The capability of transactions is 300 orders per day 
+    - The application is able to load over 100 orders in just 2 - 3 seconds
+    - Customers' information must be also protected
+    - Restaurant data must be protected
+    - The application can be launched on any platform
+    - The application is extendable to use in multiple restaurants in the future
