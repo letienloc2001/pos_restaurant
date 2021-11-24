@@ -27,7 +27,7 @@
                         $res = $connect->query($sql);
                         if (empty($res) or $res->num_rows > 0){
                             while ($row = $res->fetch_assoc()){
-                                echo '<li class="dropdown-item" ><a href="?category='.$row['categoryName'].'">'.$row['categoryName'].'</a></li>';
+                                echo '<li class="dropdown-item" ><a href="order.php?category='.$row['categoryName'].'">'.$row['categoryName'].'</a></li>';
                             }
                         }
                     ?>
@@ -47,8 +47,8 @@
                 </a>
             </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <form class="form-inline mt-2 mt-md-0" method="GET" action="search.php">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="item">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>

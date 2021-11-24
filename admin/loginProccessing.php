@@ -31,10 +31,8 @@ if (isset($_POST["login"])) {
         $res = $connect->query($sql);
 
         if (!empty($res) and $res->num_rows != 0) {
-            //tiến hành lưu tên đăng nhập vào session để tiện xử lý sau này
             $_SESSION['username'] = $username;
-            // Thực thi hành động sau khi lưu thông tin vào session
-            // ở đây mình tiến hành chuyển hướng trang web tới một trang gọi là index.php
+            
             header('Location: index.php');
             
         }

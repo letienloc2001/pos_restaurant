@@ -1,4 +1,39 @@
-<section class="section-products">
+<?php
+session_start();
+if (!isset($_SESSION['username']) && $_SESSION['username'] == NULL) {
+    header('Location: login.php');
+}
+?>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+    <meta name="viewport" content="width=device_width, initial_scale=1">
+
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    <?php
+    include 'header.php';
+    ?>
+    <section class="section-products">
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-md-8 col-lg-6">
@@ -11,93 +46,79 @@
         <div class="row">
             <!-- Single Product -->
             <?php
-            include './admin/connect.php';
-            if (isset($_GET['category'])) {
-                $category = $_GET['category'];
+                if (isset($_GET['delete'])){
+                    $item = $_GET['delete'];
+                    include 'connect.php';
+        
+                    $sql = "DELETE FROM food WHERE foodID = '$item'";
+                    $res = $connect->query($sql);
+                }
 
-                $sql = "SELECT foodID, name, description, price, image FROM food WHERE categoryName = '$category'";
+            ?>
+            <?php
+                include 'connect.php';
+                if (isset($_GET['category'])){
+                    $category = $_GET['category'];
 
-                $result = $connect->query($sql);
-                if (empty($result) or $result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<div class="col-md-6 col-lg-4 col-xl-3">
-                            <div id="product-' . $row['foodID'] . '" class="single-product">
+                    $sql = "SELECT foodID, name, description, price, image FROM food WHERE categoryName = '$category'";
+                    
+                    $result = $connect->query($sql);
+                    if (empty($result) or $result->num_rows > 0){
+                        while ($row = $result->fetch_assoc()){
+                            echo '<div class="col-md-6 col-lg-4 col-xl-3">
+                            <div id="product-'.$row['foodID'].'" class="single-product">
                                 <style>
-                                    .section-products #product-' . $row['foodID'] . ' .part-1::before {
-                                        background: url("' . $row["image"] . '") no-repeat center;
+                                    .section-products #product-'.$row['foodID'].' .part-1::before {
+                                        background: url("'.$row["image"].'") no-repeat center;
                                         background-size: cover;
                                         transition: all 0.3s;
                                     }
                                 </style>
                                 <div class="part-1">
-                                <ul>
-                                    <li><a href="order.php?category='.$category.'&addCart='.$row['foodID'].'"><i class="fas fa-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-plus"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-expand"></i></a></li>
-                                </ul>
+                                    <button name="delete_'.$row['foodID'].'" class="btn btn-danger" onclick="confirm(\'Are you sure you want to delete this item\')"><a href="?delete='.$row['foodID'].'">Delete</a></button>
                                 </div>
                                 <div class="part-2">
-                                    <h2 class="product-title">' . $row["name"] . '</h2>
-                                    <p class="font-weight-lighter">' . $row["description"] . '</p>
-                                    <h4 class="product-price text-danger">$' . $row["price"] . '</h4>
+                                    <h2 class="product-title">'.$row["name"].'</h2>
+                                    <p class="font-weight-lighter">'.$row["description"].'</p>
+                                    <h4 class="product-price text-danger">$'.$row["price"].'</h4>
                                 </div>
                             </div>
                         </div>';
+                        }
                     }
-                }
-            } else {
-                $sql = "SELECT foodID, name, description, price, image FROM food";
+                } else {
+                    $sql = "SELECT foodID, name, description, price, image FROM food";
                 $res = $connect->query($sql);
-                if (empty($res) or $res->num_rows > 0) {
-                    while ($row = $res->fetch_assoc()) {
+                if (empty($res) or $res->num_rows > 0){
+                    while ($row = $res->fetch_assoc()){
                         echo '<div class="col-md-6 col-lg-4 col-xl-3">
-                        <div id="product-' . $row['foodID'] . '" class="single-product">
+                        <div id="product-'.$row['foodID'].'" class="single-product">
                             <style>
-                                .section-products #product-' . $row['foodID'] . ' .part-1::before {
-                                    background: url("' . $row["image"] . '") no-repeat center;
+                                .section-products #product-'.$row['foodID'].' .part-1::before {
+                                    background: url("'.$row["image"].'") no-repeat center;
                                     background-size: cover;
                                     transition: all 0.3s;
                                 }
                             </style>
                             <div class="part-1">
-                            <ul>
-                                <li><a href="?addCart='.$row['foodID'].'"><i class="fas fa-shopping-cart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-plus"></i></a></li>
-                                <li><a href="#"><i class="fas fa-expand"></i></a></li>
-                            </ul>
+                                <button name="delete_'.$row['foodID'].'" class="btn btn-danger" onclick="confirm(\'Are you sure you want to delete this item\')"><a href="?delete='.$row['foodID'].'">Delete</a></button>
                             </div>
                             <div class="part-2">
-                                <h2 class="product-title">' . $row["name"] . '</h2>
-                                <p class="font-weight-lighter">' . $row["description"] . '</p>
-                                <h4 class="product-price text-danger">$' . $row["price"] . '</h4>
+                                <h2 class="product-title">'.$row["name"].'</h2>
+                                <p class="font-weight-lighter">'.$row["description"].'</p>
+                                <h4 class="product-price text-danger">$'.$row["price"].'</h4>
                             </div>
                         </div>
                     </div>';
                     }
                 }
-            }
-            ?>
-            <?php
-                include './admin/connect.php';
-
-                $id = isset($_GET['addCart']) ? $_GET['addCart'] : '';
-
-                if (isset($_SESSION['cart'])){
-                    if (isset($_SESSION['cart'][$id])){
-                        $_SESSION['cart'][$id]['qty'] += 1;
-                    } else {
-                        $_SESSION['cart'][$id]['qty'] = 1;   
-                    }
-                } else {
-                    $_SESSION['cart'][$id]['qty'] = 1;
                 }
-                          
+                
             ?>
         </div>
     </div>
 </section>
+</body>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
@@ -158,7 +179,6 @@
     .section-products .single-product:hover .part-1::before {
         transform: scale(1.2, 1.2) rotate(5deg);
     }
-
 
 
     .section-products .single-product .part-1 .discount,
@@ -242,3 +262,4 @@
         transform: translateY(-50%);
     }
 </style>
+</html>

@@ -1,4 +1,37 @@
-<section class="section-products">
+<?php
+    if (session_id() === '') {
+        session_start();
+    }
+?>
+<!DOCTYPE html>
+<html lang="en" style="height: 100%" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+    <meta name="viewport" content="width=device_width, initial_scale=1">
+
+    <title>Restaurant POS 2.0</title>
+</head>
+<body>
+    <?php
+        include "template/header.php";
+    ?>
+    <!-- Menu -->
+    <section class="section-products">
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-md-8 col-lg-6">
@@ -12,10 +45,10 @@
             <!-- Single Product -->
             <?php
             include './admin/connect.php';
-            if (isset($_GET['category'])) {
-                $category = $_GET['category'];
+            if (isset($_GET['item'])) {
+                $item = $_GET['item'];
 
-                $sql = "SELECT foodID, name, description, price, image FROM food WHERE categoryName = '$category'";
+                $sql = "SELECT foodID, name, description, price, image FROM food WHERE name LIKE '%$item%' or categoryName LIKE '%$item%'";
 
                 $result = $connect->query($sql);
                 if (empty($result) or $result->num_rows > 0) {
@@ -31,7 +64,7 @@
                                 </style>
                                 <div class="part-1">
                                 <ul>
-                                    <li><a href="order.php?category='.$category.'&addCart='.$row['foodID'].'"><i class="fas fa-shopping-cart"></i></a></li>
+                                    <li><a href="?item='.$item.'&addCart='.$row['foodID'].'"><i class="fas fa-shopping-cart"></i></a></li>
                                     <li><a href="#"><i class="fas fa-heart"></i></a></li>
                                     <li><a href="#"><i class="fas fa-plus"></i></a></li>
                                     <li><a href="#"><i class="fas fa-expand"></i></a></li>
@@ -47,36 +80,7 @@
                     }
                 }
             } else {
-                $sql = "SELECT foodID, name, description, price, image FROM food";
-                $res = $connect->query($sql);
-                if (empty($res) or $res->num_rows > 0) {
-                    while ($row = $res->fetch_assoc()) {
-                        echo '<div class="col-md-6 col-lg-4 col-xl-3">
-                        <div id="product-' . $row['foodID'] . '" class="single-product">
-                            <style>
-                                .section-products #product-' . $row['foodID'] . ' .part-1::before {
-                                    background: url("' . $row["image"] . '") no-repeat center;
-                                    background-size: cover;
-                                    transition: all 0.3s;
-                                }
-                            </style>
-                            <div class="part-1">
-                            <ul>
-                                <li><a href="?addCart='.$row['foodID'].'"><i class="fas fa-shopping-cart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-plus"></i></a></li>
-                                <li><a href="#"><i class="fas fa-expand"></i></a></li>
-                            </ul>
-                            </div>
-                            <div class="part-2">
-                                <h2 class="product-title">' . $row["name"] . '</h2>
-                                <p class="font-weight-lighter">' . $row["description"] . '</p>
-                                <h4 class="product-price text-danger">$' . $row["price"] . '</h4>
-                            </div>
-                        </div>
-                    </div>';
-                    }
-                }
+                echo 'Nothing found';
             }
             ?>
             <?php
@@ -98,6 +102,8 @@
         </div>
     </div>
 </section>
+</body>
+</html>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
