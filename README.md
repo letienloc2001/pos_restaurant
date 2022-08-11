@@ -1,2 +1,2 @@
 # pos_restaurant
-A project of Software Engineering Course
+Project of Software Engineering Course
